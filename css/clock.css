@@ -28,7 +28,7 @@ body {
   user-select: none;
 }
 
-#date {
+#date  {
   text-align:center;
   margin-top:-200px;
   font-size: 130%;
@@ -43,11 +43,33 @@ body {
   user-select: none;
 }
 
+#weather  {
+  text-align:center;
+  margin-top:0px;
+  height:150px;
+  font-size: 150%;
+  white-space: nowrap;
+  overflow: hidden;
+  color: #DDDDDD;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
 #search {
   text-align:center;
-  margin-top:150px;
+  margin-top:100px;
   white-space: nowrap;
   overflow: hidden;
   color: #DDDDDD;
 }
 
+#googleInput {
+  padding: 5px;
+  border-radius: 25px;
+  font-size: 10pt;
+  outline: 0;
+}
