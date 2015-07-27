@@ -94,21 +94,21 @@ function weather(wLatitude, wLongitude, city) {
     var currIcon = data.currently.icon;
     var dataPoint = data.daily.data;
 
-    addDay(currTemp, currIcon, "<b>Now</b>", 110, 5);
+    addDay(currTemp, currIcon, "<b>Now</b>", 85, 5);
     
     for (i = 1; i < 7; i++) {
       var nextTemp = dataPoint[(today+i)%7].temperatureMax;
       var nextTemp = ((nextTemp - 32) * (5/9)).toFixed(0); // Convert from F to C
       var nextIcon = dataPoint[(today+i)%7].icon;
       
-      addDay(nextTemp, nextIcon, days[(today+i)%7], 100, 4);
+      addDay(nextTemp, nextIcon, days[(today+i)%7], 70, 4);
     }
   });
   
   appendDoc("location", city);
 }
 
-function addDay(temp, icon, day, width, fontSize) {
+function addDay(temp, icon, day, height, fontSize) {
   var icons = ['clear-day','clear-night','rain','snow','sleet','wind','fog','cloudy','partly-cloudy-day','partly-cloudy-night'];
   temp = temp + " &#176;C";
   
@@ -116,7 +116,7 @@ function addDay(temp, icon, day, width, fontSize) {
     icon = "clear-day.png"; 
   }
     
-  var img = "<img src=\"img/"+ icon +".png\" class=\"wIcon\" style=width:"+width+"px;height:auto\";>";
+  var img = "<img src=\"img/"+ icon +".png\" class=\"wIcon\" style=width:auto;height:"+height+"px;\";>";
     
   appendDoc("weather", "<div id=\"wrapped\"> " + img + "<br>" 
   + "<b><font size="+fontSize+">" + temp + "</font></b>" + "<br>"
