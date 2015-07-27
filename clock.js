@@ -52,23 +52,46 @@ function locationError(err) {
 }
 
 function weather(wLatitude, wLongitude) {
-  var icons = ['clear-day','clear-night','rain','snow','sleet','wind','fog','cloudy','partly-cloudy-day','partly-cloudy-night'];
+  var d = new Date();
+  var today = d.getDay(); // 0 = Sun
+  
   // Format: https://api.forecast.io/forecast/APIKEY/LATITUDE,LONGITUDE,TIME
-
   var apiURL = "https://api.forecast.io/forecast/" + APIKEY + 
                "/" + wLatitude + "," + wLongitude;
   
   $.getJSON(apiURL + "?callback=?", function(data) {
-    var temp = (data.currently.temperature - 32) * (5/9);
-    var icon = data.currently.icon;
-    if (icons.indexOf(icon) == -1) {
-      icon = "clear-day.png";
-    }
-    var img = "<img src=\"img/"+ icon +".png\" style=\"width:100px;height:auto\";>";
-    temp = temp.toFixed(0) + " &#176;C";
-    document.getElementById("weather").innerHTML = img + "<br>" 
-    + "<b>" + temp + "</b>" + "<br>"
-    + "Now";
-  });
+    var currTemp = ((data.currently.temperature - 32) * (5/9)).toFixed(0); // Convert from F to C
+    var currIcon = data.currently.icon;
+    var dataPoint = data.daily.data;
 
+    addDay(currTemp, currIcon, "Now");
+    
+    for (i = 1; i < 7; i++) {
+      var nextTemp = dataPoint[(today+i)%7].temperatureMax;
+      var nextTemp = ((nextTemp - 32) * (5/9)).toFixed(0); // Convert from F to C
+      var nextIcon = dataPoint[(today+i)%7].icon;
+      
+      addDay(nextTemp, nextIcon, days[(today+i)%7]);
+    }
+  });
+}
+
+function addDay(temp, icon, day) {
+  var icons = ['clear-day','clear-night','rain','snow','sleet','wind','fog','cloudy','partly-cloudy-day','partly-cloudy-night'];
+  temp = temp + " &#176;C";
+  
+  if (icons.indexOf(icon) == -1) { // If weather is weird, use default sunny icon.
+    icon = "clear-day.png"; 
+  }
+    
+  var img = "<img src=\"img/"+ icon +".png\" style=\"width:100px;height:auto\";>";
+    
+  appendDoc("weather", "<div id=\"wrapped\"> " + img + "<br>" 
+  + "<b>" + temp + "</b>" + "<br>"
+  + day + "</div>");
+}
+
+function appendDoc(elem, html) {
+  old_html = document.getElementById(elem).innerHTML;
+  document.getElementById(elem).innerHTML = old_html + html;
 }

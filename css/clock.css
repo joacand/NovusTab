@@ -46,7 +46,7 @@ body {
 #weather  {
   text-align:center;
   margin-top:0px;
-  height:150px;
+  height:200px;
   font-size: 150%;
   white-space: nowrap;
   overflow: hidden;
@@ -73,3 +73,15 @@ body {
   font-size: 10pt;
   outline: 0;
 }
+
+#wrapper {
+  width:100%;
+  text-align:center;
+}
+
+#wrapped {
+  padding:12px;
+  display:inline-block;
+}
+
+
