@@ -41,17 +41,31 @@ function showWeather() {
 function locationSuccess(position) {
   latitude = position.coords.latitude;
   longitude = position.coords.longitude; 
+  
+  reverseGeo(latitude, longitude);
+}
+
+function locationError(err) {
+  // If Geolocation is not working, start with default location
+  reverseGeo(latitude, longitude);
+}
+
+function reverseGeo(lat, lon) {
   var city  = "";
   var cityS = "";
   var cityL = "";
   
   var geocoder = new google.maps.Geocoder();
-  var latlng = new google.maps.LatLng(latitude, longitude);
-
-  //Reverse geocode to get the city of the user
-  geocoder.geocode({ 'latLng': latlng }, function (results, status) {
+  var latlng = new google.maps.LatLng(lat, lon);
   
+  // Reverse geocode to get the city of the user
+  geocoder.geocode({ 'latLng': latlng }, function (results, status) {
     var result = results[0];
+    
+    if (result == null) {
+      weather(lat, lon, "");
+      return;
+    }
     var len = result.address_components.length;
 
     for (i = 0; i < len; i++) {
@@ -72,13 +86,8 @@ function locationSuccess(position) {
       city = cityL;
     }
     
-    weather(latitude, longitude, city);
+    weather(lat, lon, city);
   });
-}
-
-function locationError(err) {
-  // If Geolocation is not working, start with default location
-  weather(latitude, longitude, "");
 }
 
 function weather(wLatitude, wLongitude, city) {
