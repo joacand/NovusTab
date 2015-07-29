@@ -8,8 +8,8 @@ var APIKEY = "YourKeyHere"; // Hide in PHP later
 
 // Default long/lat coordinates are used if user denies geolocation or if geolocation
 // is not available
-var longitude = 38.8833;
-var latitude = 77.0167;
+var longitude = 18.0686;
+var latitude = 59.3294;
 
 document.getElementById("date").innerHTML = dateOut;
     
@@ -103,14 +103,14 @@ function weather(wLatitude, wLongitude, city) {
     var currIcon = data.currently.icon;
     var dataPoint = data.daily.data;
 
-    addDay(currTemp, currIcon, "<b>Now</b>", 85, 5);
+    addDay(currTemp, currIcon, "<b>Now</b>", 4, 5);
     
     for (i = 1; i < 7; i++) {
       var nextTemp = dataPoint[(today+i)%7].temperatureMax;
       var nextTemp = ((nextTemp - 32) * (5/9)).toFixed(0); // Convert from F to C
       var nextIcon = dataPoint[(today+i)%7].icon;
       
-      addDay(nextTemp, nextIcon, days[(today+i)%7], 70, 4);
+      addDay(nextTemp, nextIcon, days[(today+i)%7], 2.6, 3);
     }
   });
   
@@ -125,11 +125,11 @@ function addDay(temp, icon, day, height, fontSize) {
     icon = "clear-day.png"; 
   }
     
-  var img = "<img src=\"img/"+ icon +".png\" class=\"wIcon\" style=width:auto;height:"+height+"px;\";>";
+  var img = "<img src=\"img/"+ icon +".png\" class=\"wIcon\" style=width:auto;height:"+height+"vw;\";>";
     
   appendDoc("weather", "<div id=\"wrapped\"> " + img + "<br>" 
-  + "<b><font size="+fontSize+">" + temp + "</font></b>" + "<br>"
-  + day + "</div>");
+  + "<b><p style=font size:"+fontSize+"vw>" + temp + "</b>" + "<br>"
+  + day + "</p></div>");
 }
 
 function appendDoc(elem, html) {
