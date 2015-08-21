@@ -82,7 +82,7 @@ body {
 
 #googleInput {
   padding: 0.5%;
-  border-radius: 25px;
+  border-radius: 5px;
   font-size: 0.6vw;
   outline: 0;
 }
@@ -113,13 +113,9 @@ body {
 }
 
 .imglink {
-  border-radius:8%;
   overflow:hidden;
-	border-style:solid;
-  border-width:1px; 
-  border-color:black;	
-  height:5vw;
-  width:8vw;
+  height:4vw;
+  width:7vw;
   -webkit-transition: all .2s ease-out;
   -moz-transition: all .2s ease-out;
   -o-transition: all .2s ease-out;
@@ -136,7 +132,5 @@ body {
   color: #DDDDDD;
   text-align: center;
   font-weight: bold;
-  padding:1px 1px;
-  border-style:solid;
-  border-width:0px; 
+  padding-top:1px;
 }
